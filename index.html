@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADA | Revenue Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #060708;
+      --bg-soft: #0c0f12;
+      --panel: rgba(255,255,255,0.04);
+      --line: rgba(255,255,255,0.10);
+      --line-strong: rgba(255,255,255,0.16);
+      --text: #f5f7fa;
+      --muted: #99a3ad;
+      --soft: #cfd6de;
+      --accent: #9ee7b8;
+      --accent-strong: #83ddb0;
+      --shadow: 0 24px 80px rgba(0,0,0,0.36);
+      --radius: 28px;
+      --maxw: 1240px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(158,231,184,0.10), transparent 28%),
+        radial-gradient(circle at 85% 22%, rgba(255,255,255,0.05), transparent 18%),
+        linear-gradient(180deg, #060708 0%, #080a0c 100%);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: var(--maxw);
+    }
+
+    .frame {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.018));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.22), rgba(0,0,0,0));
+      pointer-events: none;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(158,231,184,0.30);
+      flex: 0 0 auto;
+    }
+
+    .brand-sub {
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 36px;
+      align-items: center;
+      padding: 68px 58px 44px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.03);
+      color: var(--soft);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(3.1rem, 6vw, 6.35rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    h1 .accent {
+      color: var(--accent);
+    }
+
+    .subtext {
+      max-width: 690px;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 1.7vw, 1.22rem);
+      line-height: 1.62;
+      margin-bottom: 30px;
+    }
+
+    .subtext strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      text-decoration: none;
+      border-radius: 16px;
+      padding: 17px 26px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #07110c;
+      box-shadow: 0 12px 32px rgba(158,231,184,0.22);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-strong);
+      box-shadow: 0 16px 38px rgba(158,231,184,0.28);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--line-strong);
+    }
+
+    .proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .proof a {
+      text-decoration: none;
+      color: var(--soft);
+      font-size: 0.83rem;
+      font-weight: 600;
+      padding: 10px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .proof a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      border-color: var(--line-strong);
+    }
+
+    .panel {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 28px;
+      min-height: 405px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    }
+
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: auto 28px 28px 28px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.00), rgba(255,255,255,0.14), rgba(255,255,255,0.00));
+    }
+
+    .panel-label {
+      color: var(--muted);
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .panel-quote {
+      max-width: 430px;
+      font-size: 1.6rem;
+      line-height: 1.28;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .panel-quote .accent {
+      color: var(--accent);
+    }
+
+    .panel-meta {
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel-item {
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .panel-item-title {
+      color: var(--text);
+      font-size: 0.97rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .panel-item-copy {
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.55;
+    }
+
+    .panel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 22px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--soft);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .panel-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    .sketch {
+      position: absolute;
+      right: 26px;
+      top: 18px;
+      opacity: 0.26;
+      pointer-events: none;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 30px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .bottom-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .dot-sep {
+      opacity: 0.35;
+    }
+
+    .bottom a {
+      color: var(--soft);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .bottom a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 46px 28px 28px;
+      }
+
+      .panel {
+        min-height: auto;
+      }
+
+      .bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 14px;
+      }
+
+      .topbar,
+      .bottom {
+        padding: 18px;
+      }
+
+      .hero {
+        padding: 34px 18px 22px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .sketch {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="frame">
+      <div class="topbar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <span>ADA</span>
+        </div>
+        <div class="brand-sub">Revenue Intelligence</div>
+      </div>
+
+      <div class="hero">
+        <div class="content">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Pricing, BI e inteligencia aplicada a decisiones de negocio
+          </div>
+
+          <h1>
+            Tú haces el negocio.
+            <span class="accent">ADA hace la inteligencia detrás del crecimiento.</span>
+          </h1>
+
+          <p class="subtext">
+            Diseñamos sistemas de decisión para líderes que necesitan
+            <strong>monetizar mejor</strong>,
+            <strong>actuar más rápido</strong> y
+            <strong>encontrar revenue oculto</strong> sin distraerse de lo que hace crecer su empresa.
+          </p>
+
+          <div class="actions">
+            <a href="/consumo" class="btn btn-primary">Ver demo ejecutiva</a>
+            <a href="https://linkedin.com/in/tu-perfil" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Hablemos de negocio</a>
+          </div>
+
+          <div class="proof">
+            <a href="https://medium.com/@manuel.jose.alvarezg/the-dash-kpi-card-that-buys-you-time-ae413110d9e2" target="_blank" rel="noopener noreferrer">Medium EN</a>
+            <a href="https://medium.com/@manuel.jose.alvarezg/la-kpi-card-ejecutiva-en-dash-que-te-compra-tiempo-a2788c57299f" target="_blank" rel="noopener noreferrer">Medium ES</a>
+            <a href="https://tu-link-del-curso.com" target="_blank" rel="noopener noreferrer">Curso IA para ejecutivos</a>
+            <a href="https://tu-link-del-video.com" target="_blank" rel="noopener noreferrer">Lolo Imagina</a>
+          </div>
+        </div>
+
+        <aside class="panel">
+          <svg class="sketch" width="126" height="126" viewBox="0 0 126 126" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 86C36 59 64 31 103 21" stroke="#9EE7B8" stroke-width="2.1" stroke-linecap="round"/>
+            <path d="M91 21C96 21 101 22 106 26" stroke="#9EE7B8" stroke-width="2.1" stroke-linecap="round"/>
+            <path d="M99 15C104 19 106 24 106 30" stroke="#9EE7B8" stroke-width="2.1" stroke-linecap="round"/>
+            <circle cx="42" cy="66" r="27" stroke="#9EE7B8" stroke-width="1.7"/>
+          </svg>
+
+          <div class="panel-label">Por qué ADA</div>
+
+          <div class="panel-quote">
+            Menos ruido.
+            Más foco.
+            <span class="accent">Más decisiones que mueven revenue.</span>
+          </div>
+
+          <div class="panel-meta">
+            <div class="panel-item">
+              <div class="panel-item-title">Foco radical</div>
+              <div class="panel-item-copy">
+                Tú lideras operación, producto y crecimiento. ADA toma la complejidad de pricing, datos e inteligencia.
+              </div>
+            </div>
+
+            <div class="panel-item">
+              <div class="panel-item-title">Inteligencia útil</div>
+              <div class="panel-item-copy">
+                No hacemos dashboards para mirar. Construimos señales para decidir, priorizar y monetizar mejor.
+              </div>
+            </div>
+
+            <div class="panel-item">
+              <div class="panel-item-title">Tecnología con impacto</div>
+              <div class="panel-item-copy">
+                La IA no está para impresionar. Está para hacer visible dinero que hoy no se está capturando.
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-badge">
+            <span class="panel-badge-dot"></span>
+            Revenue • Pricing • BI • AI
+          </div>
+        </aside>
+      </div>
+
+      <div class="bottom">
+        <div class="bottom-left">
+          <span>ADA Solutions</span>
+          <span class="dot-sep">•</span>
+          <span>Decisiones más precisas</span>
+          <span class="dot-sep">•</span>
+          <span>Crecimiento más rentable</span>
+        </div>
+        <div>
+          <a href="/portafolio" class="btn btn-primary">Ver demo ejecutiva</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
